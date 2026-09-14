@@ -1,5 +1,5 @@
-import app_name
+import blogging_platform_api
 
 
 def test_version() -> None:
-    assert app_name.__version__ == "0.1.0"
+    assert blogging_platform_api.__version__ == "0.1.0"
