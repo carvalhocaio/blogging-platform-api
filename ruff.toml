@@ -1,0 +1,23 @@
+line-length = 88
+target-version = "py313"
+src = ["src", "tests"]
+
+[lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+    "C4",
+    "RUF",
+    "ASYNC",
+]
+ignore = ["B008"]
+
+[lint.isort]
+known-first-party = ["blogging_platform_api"]
+
+[format]
+quote-style = "double"

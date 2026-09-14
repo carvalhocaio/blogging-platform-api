@@ -29,31 +29,6 @@ dev = [
     "ruff>=0.15.0",
 ]
 
-[tool.ruff]
-line-length = 88
-target-version = "py312"
-src = ["src", "tests"]
-
-[tool.ruff.lint]
-select = [
-    "E",    # pycodestyle errors
-    "W",    # pycodestyle warnings
-    "F",    # pyflakes
-    "I",    # isort
-    "UP",   # pyupgrade
-    "B",    # flake8-bugbear
-    "SIM",  # flake8-simplify
-    "RUF",  # ruff-specific rules
-    "C4",   # flake8-comprehensions
-    "RET",  # flake8-return
-    "TID",  # flake8-tidy-imports
-]
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-line-ending = "auto"
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]

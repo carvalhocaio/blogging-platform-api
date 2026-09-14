@@ -34,8 +34,14 @@ make rename NAME=my-new-project
 ### 3. Install dependencies and git hooks
 
 ```bash
-make sync
+make install # or make sync
 make hooks
+```
+
+### 4. Run the development server
+
+```bash
+make run
 ```
 
 ---
@@ -46,6 +52,8 @@ make hooks
 |---|---|
 | `make help` | Show all available commands |
 | `make sync` | Install runtime and dev dependencies using `uv` |
+| `make install` | Install runtime and dev dependencies using `uv` (alias for `sync`) |
+| `make run` | Start the development server with `uvicorn` (`uv run uvicorn blogging_platform_api.main:app --reload`) |
 | `make hooks` | Install pre-commit hooks into `.git/hooks` |
 | `make hooks-run` | Run pre-commit checks on all files |
 | `make test` | Run tests with `pytest` |
@@ -53,6 +61,7 @@ make hooks
 | `make lint-fix` | Automatically fix linting issues |
 | `make format` | Format code with `ruff` |
 | `make format-check` | Check code formatting without modifying |
+| `make check` | Run code quality checks (`lint` and `test`) |
 | `make audit` | Audit dependencies for vulnerabilities with `pip-audit` |
 | `make ci` | Run full verification pipeline locally (`lint`, `format-check`, `audit`, `test`) |
 | `make clean` | Remove caches and build artifacts |
