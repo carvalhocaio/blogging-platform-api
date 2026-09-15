@@ -20,10 +20,10 @@ class FrozenClock:
         self._current = start
 
     def now(self) -> datetime:
-        return self._current  # pyright: ignore[reportReturnType]
+        return self._current
 
     def advance(self, seconds: int) -> None:
-        self._current = timedelta(seconds=seconds)
+        self._current += timedelta(seconds=seconds)
 
 
 @pytest.fixture
