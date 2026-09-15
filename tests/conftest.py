@@ -2,10 +2,16 @@ from collections.abc import AsyncIterator
 from datetime import UTC, datetime, timedelta
 
 import pytest
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.pool import StaticPool
 
 from blogging_platform_api.domain.repository import PostRepository
+from blogging_platform_api.infrastructure.persistence.database import create_schema
 from blogging_platform_api.infrastructure.persistence.memory import (
     InMemoryPostRepository,
+)
+from blogging_platform_api.infrastructure.persistence.sqlite import (
+    SQLitePostRepository,
 )
 
 
@@ -28,3 +34,16 @@ def clock() -> FrozenClock:
 @pytest.fixture
 async def memory_repository() -> AsyncIterator[PostRepository]:
     yield InMemoryPostRepository()
+
+
+@pytest.fixture
+async def sqlite_repository() -> AsyncIterator[PostRepository]:
+    engine = create_async_engine(
+        "sqlite+aiosqlite://",
+        poolclass=StaticPool,
+        connect_args={"check_same_thread": False},
+    )
+    await create_schema(engine)
+    async with AsyncSession(engine, expire_on_commit=False) as session:
+        yield SQLitePostRepository(session)
+    await engine.dispose()

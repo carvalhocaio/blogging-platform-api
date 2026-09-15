@@ -18,7 +18,7 @@ def draft(
     return PostDraft.create(title, content, category, tags)
 
 
-@pytest.fixture(params=["memory_repository"])
+@pytest.fixture(params=["memory_repository", "sqlite_repository"])
 def repository(request: pytest.FixtureRequest) -> PostRepository:
     return request.getfixturevalue(request.param)
 

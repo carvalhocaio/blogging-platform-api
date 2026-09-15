@@ -1,7 +1,8 @@
 from collections.abc import AsyncIterator
-from sqlite3 import Connection as SQLiteConnection
 
 from sqlalchemy import event
+from sqlalchemy.engine import Engine
+from sqlalchemy.engine.interfaces import DBAPIConnection
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -12,8 +13,8 @@ from sqlalchemy.ext.asyncio import (
 from blogging_platform_api.infrastructure.persistence.models import Base
 
 
-@event.listens_for(SQLiteConnection, "connect")
-def enable_foreign_keys(connection: SQLiteConnection, _record: object) -> None:
+@event.listens_for(Engine, "connect")
+def enable_foreign_keys(connection: DBAPIConnection, _record: object) -> None:
     cursor = connection.cursor()
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
