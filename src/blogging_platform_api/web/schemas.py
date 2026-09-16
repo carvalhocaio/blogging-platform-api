@@ -55,7 +55,7 @@ class PostResponse(BaseModel):
         )
 
     @field_serializer("created_at", "updated_at")
-    def serializer_timestamp(self, value: datetime) -> str:
+    def serialize_timestamp(self, value: datetime) -> str:
         return value.astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 

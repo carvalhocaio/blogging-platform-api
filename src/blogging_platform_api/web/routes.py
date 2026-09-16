@@ -28,7 +28,7 @@ async def create_post(payload: PostPayload, service: PostServiceDep) -> PostResp
 
 
 @router.get("", responses=INVALID)
-async def list_post(
+async def list_posts(
     service: PostServiceDep,
     term: Annotated[str | None, Query(max_length=100)] = None,
 ) -> list[PostResponse]:

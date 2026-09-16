@@ -18,7 +18,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     config = settings or get_settings()
 
     @asynccontextmanager
-    async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
+    async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         engine = create_engine(config.database_url, config.echo_sql)
         await create_schema(engine)
         app.state.session_factory = create_session_factory(engine)
