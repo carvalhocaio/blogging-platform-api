@@ -2,9 +2,12 @@ from collections.abc import AsyncIterator
 from datetime import UTC, datetime, timedelta
 
 import pytest
+from asgi_lifespan import LifespanManager
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.pool import StaticPool
 
+from blogging_platform_api.config import Settings
 from blogging_platform_api.domain.repository import PostRepository
 from blogging_platform_api.infrastructure.persistence.database import create_schema
 from blogging_platform_api.infrastructure.persistence.memory import (
@@ -13,6 +16,7 @@ from blogging_platform_api.infrastructure.persistence.memory import (
 from blogging_platform_api.infrastructure.persistence.sqlite import (
     SQLitePostRepository,
 )
+from blogging_platform_api.main import create_app
 
 
 class FrozenClock:
@@ -47,3 +51,13 @@ async def sqlite_repository() -> AsyncIterator[PostRepository]:
     async with AsyncSession(engine, expire_on_commit=False) as session:
         yield SQLitePostRepository(session)
     await engine.dispose()
+
+
+@pytest.fixture
+async def client(clock: FrozenClock) -> AsyncIterator[AsyncClient]:
+    app = create_app(Settings(database_url="sqlite+aiosqlite://"))
+    async with LifespanManager(app):
+        app.state.clock = clock
+        transport = ASGITransport(app=app)
+        async with AsyncClient(transport=transport, base_url="http://test") as client:
+            yield client
