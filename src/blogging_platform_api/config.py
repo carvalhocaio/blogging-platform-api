@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="BLOG_", env_file=".env")
 
-    database_url: str = "sqlite+aiosqlite://dema.db"
+    database_url: str = "sqlite+aiosqlite:///dema.db"
     echo_sql: bool = False
 
 

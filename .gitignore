@@ -24,6 +24,7 @@ htmlcov/
 
 # Database
 *.sqlite3
+*.db
 
 # IDE / Editor files
 .idea/
