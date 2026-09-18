@@ -12,6 +12,9 @@ dependencies = [
     "uvicorn[standard]>=0.32",
 ]
 
+[project.scripts]
+blog-seed = "blogging_platform_api.infrastructure.seed:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -36,6 +39,3 @@ pythonpath = ["src"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 addopts = "-q"
-
-[project.scripts]
-blog-seed = "blogging_platform_api.infrastructure.seed:main"

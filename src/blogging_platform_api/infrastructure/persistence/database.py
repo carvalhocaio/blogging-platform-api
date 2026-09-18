@@ -1,5 +1,3 @@
-from collections.abc import AsyncIterator
-
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlalchemy.engine.interfaces import DBAPIConnection
@@ -31,10 +29,3 @@ def create_session_factory(engine: AsyncEngine) -> async_sessionmaker[AsyncSessi
 async def create_schema(engine: AsyncEngine) -> None:
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
-
-
-async def session_scope(
-    factory: async_sessionmaker[AsyncSession],
-) -> AsyncIterator[AsyncSession]:
-    async with factory() as session:
-        yield session

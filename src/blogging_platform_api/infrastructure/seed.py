@@ -26,7 +26,7 @@ LETTERS: tuple[Letter, ...] = (
     Letter(
         title="Dear Clancy",
         content=(
-            "Theu tell us the walls are for our protection. "
+            "They tell us the walls are for our protection. "
             "I have started to suspect the walls are the point."
         ),
         category="Letters",
@@ -44,7 +44,7 @@ LETTERS: tuple[Letter, ...] = (
     Letter(
         title="On the practice of banditos",
         content=(
-            "We leave the city at night, in yellow tape and smuged necks. "
+            "We leave the city at night, in yellow tape and smudged necks. "
             "Being a bandito is mostly about not being seen."
         ),
         category="Trench",
